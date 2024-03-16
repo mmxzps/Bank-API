@@ -14,7 +14,7 @@ namespace Spelar_Du_In_Bank.Utilities
 {
     internal static class UserActions
     {
-        public static void CreateNewAccount(BankContext context, User user)//Mojtaba
+        public static void CreateNewAccount(BankContext context, User user)//Mojtaba :)
         {
             while (true)
             {
