@@ -28,7 +28,7 @@ namespace Spelar_Du_In_Bank.Utilities
                 //Asking if user wants to creat a new account
                 string[] options = { "Create new account", "Main menu" };
                 Console.WriteLine();
-                int selectedIndex = MenuHelper.RunMeny(options, true, true, 1, 1);
+                int selectedIndex = MenuHelper.RunMenu(options, true, true, 1, 1);
 
                 switch (selectedIndex)
                 {
@@ -51,7 +51,7 @@ namespace Spelar_Du_In_Bank.Utilities
                         };
                         context.Accounts.Add(newAcc);
                         context.SaveChanges();
-                        Console.ForegroundColor= ConsoleColor.Green;
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"Account:[{accName}] was created successfully!");
                         Console.ResetColor();
                         Console.WriteLine("Press ENTER to go back");
@@ -86,7 +86,7 @@ namespace Spelar_Du_In_Bank.Utilities
 
                 //"buttons"
                 string[] options = { "Deposit money", "Main menu" };
-                int selectedIndex = MenuHelper.RunMeny(options, true, true, 1, 1);
+                int selectedIndex = MenuHelper.RunMenu(options, true, true, 1, 1);
 
                 switch (selectedIndex)
                 {
@@ -198,7 +198,7 @@ namespace Spelar_Du_In_Bank.Utilities
             Console.ResetColor();
 
             string[] options = { "Withdraw money", "Main menu" };
-            int selectedIndex = MenuHelper.RunMeny(options, true, true, 1, 1);
+            int selectedIndex = MenuHelper.RunMenu(options, true, true, 1, 1);
 
             switch (selectedIndex)
             {
@@ -346,7 +346,7 @@ namespace Spelar_Du_In_Bank.Utilities
             int returnAccountNum = PrintAccountinfo.PrintAccount(context, user);
             //"buttons"
             string[] options = { "Transfer whitin accounts", "Main menu" };
-            int selectedIndex = MenuHelper.RunMeny(options, true, true, 1, 1);
+            int selectedIndex = MenuHelper.RunMenu(options, true, true, 1, 1);
 
             MenuAction action = new MenuAction();
             switch (selectedIndex)
@@ -496,7 +496,7 @@ namespace Spelar_Du_In_Bank.Utilities
             Console.ResetColor();
 
             string[] options = { "Account information", "Main menu" };
-            int selectedIndex = MenuHelper.RunMeny(options, true, true, 1, 1);
+            int selectedIndex = MenuHelper.RunMenu(options, true, true, 1, 1);
 
             switch (selectedIndex)
             {
@@ -565,7 +565,7 @@ namespace Spelar_Du_In_Bank.Utilities
                     break;
             }
         }
-        public static void TransferMoney(BankContext context, User user)//Sean
+        public static void ExternalTransferMoney(BankContext context, User user)//Sean
         {
         StartOfTransfer: Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -577,7 +577,7 @@ namespace Spelar_Du_In_Bank.Utilities
             Console.ResetColor();
 
             string[] options = { "Transfer Money", "Main menu" };
-            int selectedIndex = MenuHelper.RunMeny(options, true, true, 1, 1);
+            int selectedIndex = MenuHelper.RunMenu(options, true, true, 1, 1);
 
             switch (selectedIndex)
             {
@@ -762,7 +762,7 @@ namespace Spelar_Du_In_Bank.Utilities
                     break;
 
                 default:
-                    TransferMoney(context, user);
+                    ExternalTransferMoney(context, user);
                     break;
             }
         }

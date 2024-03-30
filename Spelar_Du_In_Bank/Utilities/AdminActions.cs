@@ -22,7 +22,7 @@ namespace Spelar_Du_In_Bank.Utilities
                 Console.WriteLine("");
                 string[] options = { "Create new user", "Main menu" };
                 
-                int selectedIndex = MenuHelper.RunMeny(options, true, true, 1, 12);
+                int selectedIndex = MenuHelper.RunMenu(options, true, true, 1, 12);
 
                     switch (selectedIndex)
                     {
@@ -30,7 +30,7 @@ namespace Spelar_Du_In_Bank.Utilities
                             CreateUser(context);
                             break;
                         case (1):
-                            MenuAction.MainMeny();
+                            MenuAction.MainMenu();
                             return;
                     }
             }
@@ -72,9 +72,8 @@ namespace Spelar_Du_In_Bank.Utilities
                 Console.Write("Enter users's phone number: ");
                 string phone = Console.ReadLine();
 
-                //StringBuilder sb = new StringBuilder(); ?? I think this is for accountnumber starts with 10001 and then 4 random digits 
                 Random random = new Random();
-                string pin = random.Next(1000, 10000).ToString();
+                string pin = random.Next(1000, 9999).ToString();
 
                 User newUser = new User()
                 {
@@ -88,19 +87,18 @@ namespace Spelar_Du_In_Bank.Utilities
                 };
                 bool success = DbHelper.AddUser(context, newUser);
 
-                Account newAccount = new Account()
-                {
-                    Name = "Main",
-                    Balance = 0,
-                    UserId = newUser.Id,
-                };
-
-                context.Accounts.Add(newAccount);
-
-                context.SaveChanges();
-
                 if (success)                
                 {
+                    Account newAccount = new Account()
+                    {
+                        Name = "Main",
+                        Balance = 0,
+                        UserId = newUser.Id,
+                    };
+                    context.Accounts.Add(newAccount);
+                    context.SaveChanges();
+
+
                     Console.WriteLine("");
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"Created username [{firstName}] {lastName} with pin {pin} successfully!");
@@ -129,7 +127,7 @@ namespace Spelar_Du_In_Bank.Utilities
             Console.Write(prompt);  //Writes the prompt entered in method 
             userInput = Console.ReadLine();
 
-            while (string.IsNullOrWhiteSpace(userInput))  //while loop that prevents user from entering empty loop, 
+            while (string.IsNullOrWhiteSpace(userInput))  //while loop that will runt if "userInput" is null or empty.
             {
 
                 Console.WriteLine("Field cannot be blank.");

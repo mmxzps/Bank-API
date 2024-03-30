@@ -23,20 +23,20 @@ namespace Spelar_Du_In_Bank.Utilities
         public static void Start()     //first method being called in program.cs 1
         {
             Console.Title = "Spelar du in?";
-            MainMeny(); //It main purpoise is to change main title and call this method 
+            MainMenu(); //It main purpoise is to change main title and call this method 
         }
-        public static void MainMeny() //Main meny method, this is what will be shown when entering console starts
+        public static void MainMenu() //Main meny method, this is what will be shown when entering console starts
         {
             Console.Clear();
             string prompt =
-@" .oooooo..o oooooooooo.   ooooo         oooooooooo.                        oooo                              
-d8P'    `Y8 `888'   `Y8b  `888'         `888'   `Y8b                       `888                              
-Y88bo.       888      888  888           888     888  .oooo.   ooo. .oo.    888  oooo   .ooooo.  ooo. .oo.   
- `""Y8888o.   888      888  888           888oooo888' `P  )88b  `888P""Y88b   888 .8P'   d88' `88b `888P""Y88b  
-     `""Y88b  888      888  888  8888888  888    `88b  .oP""888   888   888   888888.    888ooo888  888   888  
-oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 `88b.  888    .o  888   888  
-8""""88888P'  o888bood8P'   o888o         o888bood8P'  `Y888""""8o o888o o888o o888o o888o `Y8bod8P' o888o o888o 
-                                                        ";
+@" ▄█▀▀▀▄█  ▀██▀▀█▄   ▀██▀       ▀██▀▀█▄                    ▀██      
+ ██▄▄  ▀   ██   ██   ██         ██   ██   ▄▄▄▄   ▄▄ ▄▄▄    ██  ▄▄  
+  ▀▀███▄   ██    ██  ██         ██▀▀▀█▄  ▀▀ ▄██   ██  ██   ██ ▄▀   
+▄     ▀██  ██    ██  ██   ████  ██    ██ ▄█▀ ██   ██  ██   ██▀█▄   
+█▀▄▄▄▄█▀  ▄██▄▄▄█▀  ▄██▄       ▄██▄▄▄█▀  ▀█▄▄▀█▀ ▄██▄ ██▄ ▄██▄ ██▄ 
+                                                                   
+                                                                   
+";
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
@@ -50,7 +50,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
             string[] options = { "Admin", "User", "About", "Exit" };   //Meny options
             Console.ForegroundColor = ConsoleColor.Black;
             //MenuHelper mainMeny = new MenuHelper(prompt, options);
-            int selectedIndex = MenuHelper.RunMeny(options, false, true, 1, 13);     //Run method that registers arrowkeys and displays the options. 
+            int selectedIndex = MenuHelper.RunMenu(options, false, true, 1, 13);     //Run method that registers arrowkeys and displays the options. 
 
 
             switch (selectedIndex)
@@ -125,7 +125,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
             Console.WriteLine("Press any key to return to main menu");
             Console.ResetColor();
             Console.ReadKey(true);
-            MainMeny();
+            MainMenu();
         }
         public static void RunAdminChoice()
         {
@@ -141,8 +141,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
             Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
             Console.ResetColor();
             string[] options = { "Login", "Return" };
-            //MenuHelper loginMeny = new MenuHelper(prompt, options);
-            int selectIndex = MenuHelper.RunMeny(options, false, true, 1, 6);
+            int selectIndex = MenuHelper.RunMenu(options, false, true, 1, 6);
 
             switch (selectIndex)
             {
@@ -150,7 +149,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                     AdminLogin();
                     break;
                 case 1:
-                    MainMeny();
+                    MainMenu();
                     break;
             }
 
@@ -169,8 +168,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
             Console.WriteLine("-------------------------------------------------------------------------------------------------------------");
             Console.ResetColor();
             string[] options = { "Login", "Return" };
-            //MenuHelper userLogin = new MenuHelper(prompt, options);
-            int selectIndex = MenuHelper.RunMeny(options, false, true, 1, 6);
+            int selectIndex = MenuHelper.RunMenu(options, false, true, 1, 6);
 
             switch (selectIndex)
             {
@@ -178,7 +176,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                     LoginMenu();
                     break;
                 case 1:
-                    MainMeny();
+                    MainMenu();
                     break;
             }
         }
@@ -203,7 +201,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
             CancellationTokenSource cts = new CancellationTokenSource();    //Create a cancellationtoken source, witch is used to create a cancellationtoken
             Thread loadingThread = new Thread(() => MenuHelper.LoadingScreen(cts.Token));   //create a new thread and start it, use lamda expression to call on method.
             loadingThread.Start();  //Start thread
-           
+
             if (pin == "1234") // If user chooses to login as an administrator, I thought it would be redundant to force the user to type in "admin" as username so I the only requirement I made is for the admin pin to be correct (and it is hard coded)
             {                  // If pin input is right the first time, the program goes to the admin menu
                 cts.Cancel();
@@ -223,17 +221,17 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                 int attempts;
                 for (attempts = 3; attempts > 0; attempts--) // For loop that substracts attempts variable by 1 after every failed login attempts. -Sean 14/11/23
                 {
-                   
+
                     cts.Cancel();
                     loadingThread.Join();
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid PIN code.");                 
+                    Console.WriteLine("Invalid PIN code.");
                     Console.WriteLine($"{attempts} attempts left");
                     Console.WriteLine("Would you like to try again?");
-                    string[] options = { "Yes", "no" };
+                    string[] options = { "Yes", "No" };
                     Console.ResetColor();
-                    int selectIndex = MenuHelper.RunMeny(options, false, true, 1, 6);
+                    int selectIndex = MenuHelper.RunMenu(options, false, true, 1, 6);
                     switch (selectIndex) // Switch case. If user decides to try to login again, attempts variable decreases by 1
                     {
                         case 0:
@@ -241,28 +239,24 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                             Console.WriteLine();
                             Console.CursorVisible = true;
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                           
+
                             Console.Write("Enter pin code:"); // User is asked to input right PIN code again. 
                             pin = Console.ReadLine();
-                                                    
+
                             if (pin == "1234")
                             {
                                 Console.WriteLine("Correct admin PIN");
                                 AdminActions.DoAdminTasks();
                             }
-
                             break;
                         case 1:
-                            MainMeny();
+                            MainMenu();
                             break;
-
-                        
-
                     }
-
                 }
+                Console.WriteLine("You are out of tries");
+                Console.ReadLine();
             }
-            
         }
         public static void LoginMenu()
         {
@@ -270,13 +264,11 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("To login press [any key] or press [escape key] to return");
             ConsoleKeyInfo keyInfo = Console.ReadKey(true); //Reads the key press and stores it to keyInfo, set to true so we dont want to show the keypress in console
-            if (keyInfo.Key == ConsoleKey.Escape)   //if esc pressed return null 
+            if (keyInfo.Key == ConsoleKey.Escape)   //if esc pressed return to menu 
             {
                 Console.WriteLine("You pressed Escape key");
                 Thread.Sleep(700);
-                //MenuAction menuAction = new MenuAction();
-                //menuAction.RunMainMenu();
-                MainMeny();
+                MainMenu();
             }
             Console.CursorVisible = true;
             Console.Write("Enter username:");
@@ -288,7 +280,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
             CancellationTokenSource cts = new CancellationTokenSource();    //Create a cancellationtoken source, witch is used to create a cancellationtoken
             Thread loadingThread = new Thread(() => MenuHelper.LoadingScreen(cts.Token));   //create a new thread and start it, use lamda expression to call on method.
             loadingThread.Start();  //Start thread
-                                             
+
             using (BankContext context = new BankContext())
             {
                 //Looking into user-table to find both username and pin. if found we go to "UserMenu"
@@ -315,13 +307,13 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid username or pin code.");
                         Console.WriteLine("If you are an administrator, please restart the program and attempt login again.");
-                        
+
                         Console.WriteLine($"{attempts} attempts left");
-                       
+
                         Console.WriteLine("Would you like to try again?");
                         string[] options = { "Yes", "no" };
                         Console.ResetColor();
-                        int selectIndex = MenuHelper.RunMeny(options, false, true, 1, 6);
+                        int selectIndex = MenuHelper.RunMenu(options, false, true, 1, 6);
 
                         switch (selectIndex) // Switch case. If user decides to try to login again, attempts variable decreases by 1
                         {
@@ -329,7 +321,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                                 Console.Clear();
                                 Console.WriteLine();
                                 Console.CursorVisible = true;
-                                Console.ForegroundColor = ConsoleColor.Yellow;                                   
+                                Console.ForegroundColor = ConsoleColor.Yellow;
                                 Console.Write("Enter username:");
                                 userName = Console.ReadLine();
                                 Console.Write("Enter pin code:");
@@ -344,7 +336,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                                 }
                                 break;
                             case (1):
-                                MainMeny();
+                                MainMenu();
                                 break;
 
 
@@ -361,7 +353,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                 }
                 Console.ResetColor();
 
-            }            
+            }
         }
         public static void RunUserMenu(User user)
         {
@@ -386,8 +378,7 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                 "Open new account",
                 "External transfer",
                 "Logout" };
-                //MenuHelper userLogin = new MenuHelper(prompt, options);
-                int selectIndex = MenuHelper.RunMeny(options, false, false, 0, 7);
+                int selectIndex = MenuHelper.RunMenu(options, false, false, 0, 7);
 
                 switch (selectIndex)
                 {
@@ -407,14 +398,14 @@ oo     .d8P  888     d88'  888           888    .88P d8(  888   888   888   888 
                         UserActions.CreateNewAccount(context, user);
                         break;
                     case 5:
-                        UserActions.TransferMoney(context, user);
+                        UserActions.ExternalTransferMoney(context, user);
                         break;
                     case 6:
-                        MainMeny();
+                        MainMenu();
                         break;
                 }
             }
         }
-       
+
     }
 }

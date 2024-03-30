@@ -13,7 +13,7 @@ namespace BankBootstrap
     {
         static void Main(string[] args)
         {
-            MenuAction.MainMeny();
+            MenuAction.MainMenu();
         }
 
     }
